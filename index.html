@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSwap - Community Time Bank</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">
+        <span>⏳</span> TimeSwap
+    </div>
+
+    <nav>
+        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+        <a href="#" onclick="showPage('explore')">Explore</a>
+        <a href="#" onclick="showPage('wallet')">Wallet</a>
+        <a href="#" onclick="showPage('history')">History</a>
+    </nav>
+
+    <div class="user-section">
+        <span class="credit-badge">⏱ <span id="navCredits">2</span> hrs</span>
+        <div class="avatar">F</div>
+    </div>
+</header>
+
+
+<!-- MAIN CONTENT -->
+<main>
+
+<!-- ================= DASHBOARD ================= -->
+<section id="dashboard" class="page active">
+
+    <div class="hero">
+        <div>
+            <p class="welcome">WELCOME BACK 👋</p>
+            <h1>Make time.<br><span>Share skills.</span></h1>
+            <p class="hero-text">
+                Give an hour. Get an hour. Build a stronger community
+                without exchanging money.
+            </p>
+
+            <button class="primary-btn" onclick="showPage('create')">
+                + Post an Offer
+            </button>
+
+            <button class="secondary-btn" onclick="showPage('explore')">
+                Explore Skills
+            </button>
+        </div>
+
+        <div class="hero-card">
+            <div class="clock">⏱</div>
+            <h3>Your Time Bank</h3>
+            <div class="big-credit" id="heroCredits">2.0</div>
+            <p>hours available</p>
+
+            <div class="progress">
+                <div class="progress-fill"></div>
+            </div>
+
+            <small>Keep sharing to earn more credits!</small>
+        </div>
+    </div>
+
+
+    <!-- STATS -->
+    <div class="stats">
+
+        <div class="stat-card">
+            <div class="stat-icon">⏱</div>
+            <div>
+                <h3 id="statCredits">2</h3>
+                <p>Available Hours</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon green">🤝</div>
+            <div>
+                <h3>5</h3>
+                <p>Swaps Completed</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon yellow">⭐</div>
+            <div>
+                <h3>4.8</h3>
+                <p>Trust Rating</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon purple">👥</div>
+            <div>
+                <h3>12</h3>
+                <p>Community Connections</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- RECOMMENDED -->
+    <div class="section-header">
+        <div>
+            <h2>Recommended for you</h2>
+            <p>Skills your community is offering nearby.</p>
+        </div>
+
+        <button onclick="showPage('explore')" class="view-btn">
+            View all →
+        </button>
+    </div>
+
+
+    <div class="offer-grid">
+
+        <div class="offer-card">
+            <div class="offer-top">
+                <div class="person-avatar blue">AR</div>
+                <span class="online">● Available</span>
+            </div>
+
+            <h3>Python Programming</h3>
+            <p>Beginner Python and programming fundamentals.</p>
+
+            <div class="offer-info">
+                <span>📍 2.3 km away</span>
+                <span>⭐ 4.9</span>
+            </div>
+
+            <button class="swap-btn" onclick="openSwap('Python Programming', 'Arun')">
+                Request Swap
+            </button>
+        </div>
+
+
+        <div class="offer-card">
+            <div class="offer-top">
+                <div class="person-avatar pink">SR</div>
+                <span class="online">● Available</span>
+            </div>
+
+            <h3>Guitar Lessons</h3>
+            <p>Learn basic chords and songs for beginners.</p>
+
+            <div class="offer-info">
+                <span>📍 1.8 km away</span>
+                <span>⭐ 4.8</span>
+            </div>
+
+            <button class="swap-btn" onclick="openSwap('Guitar Lessons', 'Sarah')">
+                Request Swap
+            </button>
+        </div>
+
+
+        <div class="offer-card">
+            <div class="offer-top">
+                <div class="person-avatar orange">MK</div>
+                <span class="online">● Available</span>
+            </div>
+
+            <h3>Resume Review</h3>
+            <p>Improve your resume and prepare for interviews.</p>
+
+            <div class="offer-info">
+                <span>📍 3.1 km away</span>
+                <span>⭐ 5.0</span>
+            </div>
+
+            <button class="swap-btn" onclick="openSwap('Resume Review', 'Mohan')">
+                Request Swap
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= EXPLORE ================= -->
+<section id="explore" class="page">
+
+    <div class="page-title">
+        <div>
+            <h1>Explore Skills</h1>
+            <p>Find people who can help you — or skills you can share.</p>
+        </div>
+
+        <button class="primary-btn" onclick="showPage('create')">
+            + Create Post
+        </button>
+    </div>
+
+
+    <div class="search-area">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search skills, services..."
+            onkeyup="searchOffers()"
+        >
+
+        <select id="categoryFilter" onchange="searchOffers()">
+            <option value="all">All Categories</option>
+            <option value="Education">Education</option>
+            <option value="Technology">Technology</option>
+            <option value="Music">Music</option>
+            <option value="Career">Career</option>
+            <option value="Home">Home</option>
+        </select>
+
+    </div>
+
+
+    <div class="offer-grid" id="exploreGrid">
+
+        <div class="offer-card searchable" data-category="Technology">
+            <div class="person-avatar blue">AR</div>
+            <h3>Python Programming</h3>
+            <span class="category">Technology</span>
+            <p>I'll teach Python basics and coding fundamentals.</p>
+            <div class="offer-info">
+                <span>⏱ 1 hour</span>
+                <span>⭐ 4.9</span>
+            </div>
+            <button class="swap-btn"
+                    onclick="openSwap('Python Programming','Arun')">
+                Request Swap
+            </button>
+        </div>
+
+
+        <div class="offer-card searchable" data-category="Music">
+            <div class="person-avatar pink">SR</div>
+            <h3>Guitar Lessons</h3>
+            <span class="category">Music</span>
+            <p>Beginner guitar lessons and basic music theory.</p>
+            <div class="offer-info">
+                <span>⏱ 1 hour</span>
+                <span>⭐ 4.8</span>
+            </div>
+            <button class="swap-btn"
+                    onclick="openSwap('Guitar Lessons','Sarah')">
+                Request Swap
+            </button>
+        </div>
+
+
+        <div class="offer-card searchable" data-category="Career">
+            <div class="person-avatar orange">MK</div>
+            <h3>Resume Review</h3>
+            <span class="category">Career</span>
+            <p>Professional resume review and interview guidance.</p>
+            <div class="offer-info">
+                <span>⏱ 1 hour</span>
+                <span>⭐ 5.0</span>
+            </div>
+            <button class="swap-btn"
+                    onclick="openSwap('Resume Review','Mohan')">
+                Request Swap
+            </button>
+        </div>
+
+
+        <div class="offer-card searchable" data-category="Education">
+            <div class="person-avatar green-avatar">NP</div>
+            <h3>Mathematics Tutoring</h3>
+            <span class="category">Education</span>
+            <p>School mathematics tutoring for grades 6–10.</p>
+            <div class="offer-info">
+                <span>⏱ 1 hour</span>
+                <span>⭐ 4.7</span>
+            </div>
+            <button class="swap-btn"
+                    onclick="openSwap('Mathematics Tutoring','Nisha')">
+                Request Swap
+            </button>
+        </div>
+
+
+        <div class="offer-card searchable" data-category="Home">
+            <div class="person-avatar purple-avatar">VK</div>
+            <h3>Cooking Help</h3>
+            <span class="category">Home</span>
+            <p>Learn simple South Indian meals and recipes.</p>
+            <div class="offer-info">
+                <span>⏱ 1 hour</span>
+                <span>⭐ 4.9</span>
+            </div>
+            <button class="swap-btn"
+                    onclick="openSwap('Cooking Help','Vikram')">
+                Request Swap
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WALLET ================= -->
+<section id="wallet" class="page">
+
+    <div class="page-title">
+        <div>
+            <h1>My Time Wallet</h1>
+            <p>Track every hour you've earned and spent.</p>
+        </div>
+    </div>
+
+
+    <div class="wallet-container">
+
+        <div class="wallet-main">
+
+            <p>AVAILABLE BALANCE</p>
+
+            <div class="wallet-balance">
+                ⏱ <span id="walletCredits">2.0</span> hours
+            </div>
+
+            <div class="wallet-actions">
+                <button class="primary-btn" onclick="showPage('create')">
+                    Earn Credits
+                </button>
+
+                <button class="secondary-btn" onclick="showPage('explore')">
+                    Spend Credits
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="wallet-info">
+            <div>
+                <span>Earned</span>
+                <strong class="positive">+5.0 hrs</strong>
+            </div>
+
+            <div>
+                <span>Spent</span>
+                <strong class="negative">−3.0 hrs</strong>
+            </div>
+
+            <div>
+                <span>Total swaps</span>
+                <strong>8</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <h2 class="transaction-title">Recent Transactions</h2>
+
+    <div class="transactions">
+
+        <div class="transaction">
+            <div class="transaction-icon received">↓</div>
+            <div>
+                <h4>Python tutoring with Arun</h4>
+                <p>Sep 25, 2026</p>
+            </div>
+            <strong class="positive">+1.0 hr</strong>
+        </div>
+
+        <div class="transaction">
+            <div class="transaction-icon sent">↑</div>
+            <div>
+                <h4>Guitar lesson with Sarah</h4>
+                <p>Sep 22, 2026</p>
+            </div>
+            <strong class="negative">−1.0 hr</strong>
+        </div>
+
+        <div class="transaction">
+            <div class="transaction-icon received">↓</div>
+            <div>
+                <h4>Resume review with Mohan</h4>
+                <p>Sep 18, 2026</p>
+            </div>
+            <strong class="positive">+1.0 hr</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= HISTORY ================= -->
+<section id="history" class="page">
+
+    <div class="page-title">
+        <div>
+            <h1>Swap History</h1>
+            <p>Your completed and ongoing time exchanges.</p>
+        </div>
+    </div>
+
+    <div class="history-list">
+
+        <div class="history-card">
+            <div class="history-status completed">COMPLETED</div>
+            <h3>Python Programming</h3>
+            <p>With Arun • Sep 25, 2026</p>
+            <div class="history-bottom">
+                <span>⏱ 1 hour</span>
+                <span>⭐ 5.0</span>
+            </div>
+        </div>
+
+
+        <div class="history-card">
+            <div class="history-status completed">COMPLETED</div>
+            <h3>Resume Review</h3>
+            <p>With Mohan • Sep 18, 2026</p>
+            <div class="history-bottom">
+                <span>⏱ 1 hour</span>
+                <span>⭐ 4.8</span>
+            </div>
+        </div>
+
+
+        <div class="history-card">
+            <div class="history-status pending">PENDING</div>
+            <h3>Guitar Lessons</h3>
+            <p>With Sarah • Sep 28, 2026</p>
+
+            <div class="history-bottom">
+                <span>⏱ 1 hour</span>
+
+                <button
+                    class="confirm-small"
+                    onclick="confirmSwap(this)">
+                    Confirm
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CREATE OFFER ================= -->
+<section id="create" class="page">
+
+    <div class="form-container">
+
+        <h1>Create an Offer</h1>
+        <p>Share your skill with the community and earn time credits.</p>
+
+        <form onsubmit="createOffer(event)">
+
+            <label>What can you help with?</label>
+            <input
+                type="text"
+                id="offerTitle"
+                placeholder="Example: Java Programming"
+                required
+            >
+
+            <label>Category</label>
+            <select id="offerCategory" required>
+                <option value="">Select category</option>
+                <option>Education</option>
+                <option>Technology</option>
+                <option>Music</option>
+                <option>Career</option>
+                <option>Home</option>
+            </select>
+
+            <label>Description</label>
+
+            <textarea
+                id="offerDescription"
+                placeholder="Describe what you can help people with..."
+                required>
+            </textarea>
+
+            <label>Available duration</label>
+
+            <select id="offerDuration">
+                <option>1 hour</option>
+                <option>2 hours</option>
+                <option>3 hours</option>
+            </select>
+
+            <label>Location</label>
+
+            <input
+                type="text"
+                id="offerLocation"
+                placeholder="Example: Chennai"
+            >
+
+            <button class="primary-btn full-btn">
+                Publish Offer
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= SWAP MODAL ================= -->
+
+<div id="swapModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close" onclick="closeModal()">×</button>
+
+        <div class="modal-icon">🤝</div>
+
+        <h2>Request a TimeSwap</h2>
+
+        <p id="swapDescription">
+            Request this skill from the member.
+        </p>
+
+        <label>Choose date</label>
+        <input type="date" id="swapDate">
+
+        <label>Preferred time</label>
+        <input type="time" id="swapTime">
+
+        <label>Message</label>
+
+        <textarea
+            id="swapMessage"
+            placeholder="Introduce yourself or explain what you need help with...">
+        </textarea>
+
+        <button class="primary-btn full-btn" onclick="sendSwapRequest()">
+            Send Swap Request
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast">
+    Request sent successfully! 🎉
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
